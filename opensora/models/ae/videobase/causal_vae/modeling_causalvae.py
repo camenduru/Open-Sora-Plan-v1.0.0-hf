@@ -365,8 +365,10 @@ class CausalVAEModel(VideoBaseAE_PL):
         quant_conv_cls = resolve_str_to_obj(q_conv)
         self.quant_conv = quant_conv_cls(2 * z_channels, 2 * embed_dim, 1)
         self.post_quant_conv = quant_conv_cls(embed_dim, z_channels, 1)
+        '''
         if hasattr(self.loss, "discriminator"):
             self.automatic_optimization = False
+        '''
 
     def encode(self, x):
         if self.use_tiling and (
