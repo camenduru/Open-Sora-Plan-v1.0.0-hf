@@ -24,7 +24,7 @@ from opensora.models.diffusion.latte.modeling_latte import LatteT2V
 from opensora.sample.pipeline_videogen import VideoGenPipeline
 from opensora.serve.gradio_utils import block_css, title_markdown, randomize_seed_fn, set_env, examples, DESCRIPTION
 
-import space
+import spaces
 
 @spaces.GPU
 def generate_img(prompt, sample_steps, scale, seed=0, randomize_seed=False, force_images=False):
