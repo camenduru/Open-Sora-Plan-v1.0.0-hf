@@ -322,11 +322,11 @@ class CausalVAEModel(VideoBaseAE_PL):
 
         self.learning_rate = lr
         self.lr_g_factor = 1.0
-
+        '''
         self.loss = resolve_str_to_obj(loss_type, append=False)(
             **loss_params
         )
-
+        '''
         self.encoder = Encoder(
             z_channels=z_channels,
             hidden_size=hidden_size,
