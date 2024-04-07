@@ -24,24 +24,26 @@ from opensora.models.diffusion.latte.modeling_latte import LatteT2V
 from opensora.sample.pipeline_videogen import VideoGenPipeline
 from opensora.serve.gradio_utils import block_css, title_markdown, randomize_seed_fn, set_env, examples, DESCRIPTION
 
+import space
 
-@torch.inference_mode()
+@spaces.GPU
 def generate_img(prompt, sample_steps, scale, seed=0, randomize_seed=False, force_images=False):
     seed = int(randomize_seed_fn(seed, randomize_seed))
     set_env(seed)
     video_length = transformer_model.config.video_length if not force_images else 1
     height, width = int(args.version.split('x')[1]), int(args.version.split('x')[2])
     num_frames = 1 if video_length == 1 else int(args.version.split('x')[0])
-    videos = videogen_pipeline(prompt,
-                               video_length=video_length,
-                               height=height,
-                               width=width,
-                               num_inference_steps=sample_steps,
-                               guidance_scale=scale,
-                               enable_temporal_attentions=not force_images,
-                               num_images_per_prompt=1,
-                               mask_feature=True,
-                               ).video
+    with torch.no_grad():
+        videos = videogen_pipeline(prompt,
+                                   video_length=video_length,
+                                   height=height,
+                                   width=width,
+                                   num_inference_steps=sample_steps,
+                                   guidance_scale=scale,
+                                   enable_temporal_attentions=not force_images,
+                                   num_images_per_prompt=1,
+                                   mask_feature=True,
+                                   ).video
 
     torch.cuda.empty_cache()
     videos = videos[0]
