@@ -17,15 +17,7 @@ import gradio as gr
 import numpy as np
 from gradio.components import Textbox, Video, Image
 from transformers import T5Tokenizer, T5EncoderModel
-import sys
-current_path = os.path.abspath(__file__)
-parent_path = os.path.dirname(current_path)
-current_path = os.path.abspath(parent_path)
-parent_path = os.path.dirname(current_path)
-current_path = os.path.abspath(parent_path)
-parent_path = os.path.dirname(current_path)
-sys.path.append(parent_path)
-print(sys.path)
+
 from opensora.models.ae import ae_stride_config, getae, getae_wrapper
 from opensora.models.ae.videobase import CausalVQVAEModelWrapper, CausalVAEModelWrapper
 from opensora.models.diffusion.latte.modeling_latte import LatteT2V
